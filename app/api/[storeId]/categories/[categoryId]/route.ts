@@ -69,10 +69,11 @@ export async function GET(
 ) {
   try {
     if (!params.categoryId)
-      return new NextResponse('Category id is required', { status: 400 });
+      return new NextResponse('Category ID is required', { status: 400 });
 
     const category = await prisma.category.findUnique({
       where: { id: params.categoryId },
+      include: { billboard: true },
     });
     return NextResponse.json(category);
   } catch (error) {
